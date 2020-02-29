@@ -5,7 +5,8 @@ from nltk.corpus import stopwords
 conf = SparkConf().setMaster("local").setAppName("Stats")
 sc = SparkContext(conf= conf)
 
-text = sc.textFile("Encrypted-1.txt")
+filename = "Encrypted-3.txt"
+text = sc.textFile(filename)
 
 def output(word):
     print(word)
@@ -56,7 +57,5 @@ offset = ord(char_distribution.take(2)[1][0]) - ord(expected_distribution.take(1
 
 print(offset)
 
-new_chars = text.map(lambda line: decrypt(offset,line)).saveAsTextFile("output")
+new_chars = text.map(lambda line: decrypt(offset,line)).saveAsTextFile("decrypted-"+ filename)
 #new_chars.foreach(output)
-
-
